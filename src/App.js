@@ -6,6 +6,8 @@ import './App.css';
 function App() {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const [editIndex, setEditIndex] = useState(null);
+  const [editValue, setEditValue] = useState('');
 
   const addTodo = () => {
     if (inputValue.trim()) {
@@ -19,6 +21,19 @@ function App() {
     setTodos(newTodos);
   };
 
+  const editTodo = (index) => {
+    setEditIndex(index);
+    setEditValue(todos[index]);
+  };
+
+  const updateTodo = () => {
+    const newTodos = [...todos];
+    newTodos[editIndex] = editValue;
+    setTodos(newTodos);
+    setEditIndex(null);
+    setEditValue('');
+  };
+
   return (
     <div className="App">
       <h1>To-Do List</h1>
@@ -29,8 +44,19 @@ function App() {
         placeholder="Add a new task" 
       />
       <button onClick={addTodo}>Add</button>
+      {editIndex !== null && (
+        <div>
+          <input 
+            type="text" 
+            value={editValue} 
+            onChange={(e) => setEditValue(e.target.value)} 
+            placeholder="Edit task" 
+          />
+          <button onClick={updateTodo}>Update</button>
+        </div>
+      )}
       <div className="todo-container">
-        <TodoList todos={todos} deleteTodo={deleteTodo} />
+        <TodoList todos={todos} deleteTodo={deleteTodo} editTodo={editTodo} />
       </div>
     </div>
   );
