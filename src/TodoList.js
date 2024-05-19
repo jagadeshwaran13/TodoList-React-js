@@ -1,8 +1,7 @@
-// src/TodoList.js
 import React from 'react';
 import TodoItem from './TodoItem';
 
-const TodoList = ({ todos, deleteTodo, editTodo }) => {
+const TodoList = ({ todos, deleteTodo, editTodo, setReminder, reminderTimes }) => {
   return (
     <ul>
       {todos.map((todo, index) => (
@@ -12,6 +11,8 @@ const TodoList = ({ todos, deleteTodo, editTodo }) => {
           todo={todo} 
           deleteTodo={deleteTodo} 
           editTodo={editTodo} 
+          setReminder={setReminder}
+          reminderTime={reminderTimes[index]}
         />
       ))}
     </ul>
